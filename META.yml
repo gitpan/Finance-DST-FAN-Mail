@@ -1,0 +1,30 @@
+--- 
+abstract: Tools to interface with DST's FAN Mail service
+author: 
+  - Guillermo Roditi (groditi) <groditi@cpan.org>
+distribution_type: module
+generated_by: Module::Install version 0.68
+license: perl
+meta-spec: 
+  url: http://module-build.sourceforge.net/META-spec-v1.3.html
+  version: 1.3
+name: Finance-DST-FAN-Mail
+no_index: 
+  directory: 
+    - inc
+    - t
+requires: 
+  Crypt::SSLeay: 0
+  Data::UUID: 0
+  DateTime: 0
+  IO::File: 0
+  LWP::Protocol::https: 0
+  LWP::UserAgent: 0
+  MIME::Base64: 0
+  Moose: 0.28
+  MooseX::Object::Pluggable: 0.0006
+  MooseX::Types::Path::Class: 0.04
+  Path::Class: 0
+  URI: 0
+  XML::Simple: 0
+version: undef

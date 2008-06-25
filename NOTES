@@ -1,0 +1,28 @@
+Workflow Notes:
+
+1 - Get list of Files
+2 - Schedule file for downloading, if available
+3 - On d/l completion schedule file for processing and go back to 2
+
+####Download loop
+1 - Get list of files, and add them to download queue (if any)
+2 - 0 - Check if there is more files to d/l. If yes go to 2 - 1 else go to 3
+    1 - Download file, 
+    2 - Schedule for processing
+    3 - goto 2 - 0
+3 - Schedule step 1
+
+####Bucket separation.
+Process loop
+1 - Is ther files to process? if yes continue, else 
+2 - Unzip file
+3 - Run record process loop
+4 - Schedule step 1
+
+####Find a way to order the existing files.
+Async processor should handle this via a scheduler using the header...
+
+#manage buckets by
+GROUP BY filetype, company of origin, product ORDER BY cycle_date DESC
+
+#make an app::cmd command line executable that accomplishes most simple tasks
