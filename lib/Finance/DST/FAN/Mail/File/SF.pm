@@ -1,6 +1,6 @@
 package Finance::DST::FAN::Mail::File::SF;
 
-our $VERSION = '0.002000';
+our $VERSION = '0.003000';
 
 use Moose;
 use Finance::DST::FAN::Mail::Utils qw/trim/;

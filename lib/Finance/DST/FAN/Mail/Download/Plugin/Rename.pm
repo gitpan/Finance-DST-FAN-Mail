@@ -2,7 +2,7 @@ package Finance::DST::FAN::Mail::Download::Plugin::Rename;
 
 use Moose::Role;
 
-our $VERSION = '0.002000';
+our $VERSION = '0.003000';
 
 use File::Copy;
 use Finance::DST::FAN::Mail::Utils qw/get_file_info/;
@@ -60,35 +60,21 @@ L<Finance::DST::FAN::Mail::Download::Plugin::Unzip> and renames the file after t
 unzip operation is completed successfully. All methods and attributes will be
 automatically consumed by that class at load time.
 
-=head1 ATTRIBUTES
-
-=head2 _uuid_gen
-
-=over 4
-
-=item B<_has_uuid_gen> - predicate
-
-=item B<_clear_uuid_gen> - clearer
-
-=item B<_build__uuid_gen> - builder. does a simple C<new Data::UUID>
-
-=back
-
-Read-only lazy-building L<Data::UUID> object.
-
 =head1 METHODS
 
-=head2 _unzip
+=head2 _download
 
-C<around '_unzip'>. Wraps the unzip method and calls C<_rename> after downloading.
-the value returned by C<_unzip> will be the name of the new filename.
+C<around '_download'>. Wraps the download method, calls unzip if necessary and
+calls C<_rename> after downloading.
 
 =head2 _rename $unziped_file
 
-Will rename the file to the following format
-${provider}_${type}_${date_ymd}_${resend_indicator}_${uuid}
- eg DTCCR_01_20081231_0_FFCA0AD0-A8FB-11DC-9F8C-01E8798CBAC4
-and return the new filename.
+Will rename the file to the following format:
+
+    # eg ACMECO_APR_20081231_REIT_0_00
+    ${provider}_${file_type}_${date_ymd}_${product_type}_${resend_indicator}_${counter}
+
+Returns the new filename upon success and throws an exception on failure.
 
 =head1 SEE ALSO
 

@@ -7,14 +7,33 @@ use Class::MOP;
 use DateTime;
 use Carp qw/confess/;
 
-our $VERSION = '0.001000';
+use Sub::Exporter -setup =>
+  { exports => [ qw(
+                     trim
+                     parse_date
+                     read_file
+                     file_info_from_header
+                     get_file_info
+                  )
+               ],
+  };
 
-our (@ISA, @EXPORT_OK);
-BEGIN {
-  require Exporter;
-  @ISA = qw(Exporter);
-  @EXPORT_OK = qw(trim parse_date read_file file_info_from_header get_file_info);
-}
+our $VERSION = '0.003000';
+
+our %type_code_to_name =
+  (
+   AMP => 'ACCT MASTER POS',
+   APR => 'ACCT POSITION',
+   DA  => 'DISTRIBUTION',
+   DFA => 'FINANCIALDIRECT',
+   SF  => 'SECURITY FILE',
+   NAA => 'NEWACCT ACTIVIT',
+   NFA => 'NONFINANCIALACT',
+   FPR => 'PRICE REFRESHER',
+  );
+
+our %type_name_to_code = ( map { $type_code_to_name{$_} => $_ }
+                           keys %type_code_to_name );
 
 sub parse_date($;$) {
   my $date = shift;

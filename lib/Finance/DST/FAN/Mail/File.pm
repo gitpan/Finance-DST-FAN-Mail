@@ -10,7 +10,7 @@ use Finance::DST::FAN::Mail::Utils qw/trim parse_date/;
 sub is_refresh{  confess "empty prototype" }
 sub is_delta{ confess "empty prototype" }
 
-our $VERSION = '0.002000';
+our $VERSION = '0.003000';
 
 our $rhr = qr/^RHR001(.{15})(\d{8})(\d{8})([\d\s]{8})(.{8})(\d{3})(\d{7}).(.{3})(..).(.)(.)/;
 our $rtr = qr/^RTR001(.{15})(.{9})/;

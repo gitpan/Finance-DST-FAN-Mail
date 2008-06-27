@@ -2,7 +2,7 @@ package Finance::DST::FAN::Mail::Download;
 
 use Moose;
 
-our $VERSION = '0.002000';
+our $VERSION = '0.003000';
 
 use URI;
 use XML::Simple;

@@ -1,6 +1,6 @@
 package Finance::DST::FAN::Mail::File::AMP;
 
-our $VERSION = '0.002000';
+our $VERSION = '0.003000';
 
 use Moose;
 extends 'Finance::DST::FAN::Mail::File::Activity';

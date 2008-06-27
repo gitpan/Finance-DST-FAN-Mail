@@ -1,4 +1,8 @@
-0.002000 - June 25 2008
+0.003000 - June 27 2008
+  - use Sub::Exporter for utils
+  - add %type_code_to_name and %type_name_to_code to Utils
+  - correct the Rename plugin's POD
+0.002000 - June 27 2008
   - make classes immutable
   - POD additions and updates
 0.001000 - June 25 2008

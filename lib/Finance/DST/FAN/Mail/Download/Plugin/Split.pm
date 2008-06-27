@@ -2,7 +2,7 @@ package Finance::DST::FAN::Mail::Download::Plugin::Split;
 
 use Moose::Role;
 
-our $VERSION = '0.002000';
+our $VERSION = '0.003000';
 
 use Finance::DST::FAN::Mail::Utils qw/trim file_info_from_header/;
 
@@ -87,7 +87,7 @@ sub _split {
 
 =head1 NAME
 
-Finance::DST::FAN::Mail::Download::Plugin::Split - Split files after downloading
+Finance::DST::FAN::Mail::Download::Plugin::Split - Split files after download
 
 =head1 DESCRIPTION
 
