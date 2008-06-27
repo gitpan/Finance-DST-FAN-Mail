@@ -10,7 +10,7 @@ use Finance::DST::FAN::Mail::Utils qw/trim parse_date/;
 sub is_refresh{  confess "empty prototype" }
 sub is_delta{ confess "empty prototype" }
 
-our $VERSION = '0.001000';
+our $VERSION = '0.002000';
 
 our $rhr = qr/^RHR001(.{15})(\d{8})(\d{8})([\d\s]{8})(.{8})(\d{3})(\d{7}).(.{3})(..).(.)(.)/;
 our $rtr = qr/^RTR001(.{15})(.{9})/;
@@ -179,8 +179,9 @@ sub is_lp   { shift->product_type eq 'L' }
 sub is_vul  { shift->product_type eq 'U' }
 sub is_reit { shift->product_type eq 'R' }
 
-1;
+__PACKAGE__->meta->make_immutable;
 
+1;
 
 __END__;
 
@@ -402,18 +403,8 @@ Extract the record_count from the footer records for integirity checking.
 
 L<Finance::DST::FAN::Mail::Utils>
 
-=head1 AUTHOR
+=head1 AUTHOR & LICENSE
 
-Guillermo Roditi (groditi) <groditi@cpan.org>
-
-Your name could be here (please contribute!)
-
-=head1 BUGS, FEATURE REQUESTS AND CONTRIBUTIONS
-
-Google Code Project Page - L<http://code.google.com/p/finance-dst-fan-mail/>
-
-=head1 LICENSE
-
-You may distribute this code under the same terms as Perl itself.
+Please see L<Finance::DST::FAN::Mail> for more information.
 
 =cut

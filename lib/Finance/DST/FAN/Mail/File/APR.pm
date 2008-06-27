@@ -1,6 +1,6 @@
 package Finance::DST::FAN::Mail::File::APR;
 
-our $VERSION = '0.001000';
+our $VERSION = '0.002000';
 
 use Moose;
 use Finance::DST::FAN::Mail::Utils qw/trim parse_date/;
@@ -285,6 +285,8 @@ sub _process_reit {
   $self->error("Recieved no trailer record. File possibly truncated.");
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;
 
 __END__;
@@ -338,12 +340,8 @@ Process mutual fund records.
 
 L<Finance::DST::FAN::Mail::File>, L<Finance::DST::FAN::Mail::Utils>
 
-=head1 AUTHOR
+=head1 AUTHOR & LICENSE
 
-Guillermo Roditi (groditi) <groditi@cpan.org>
-
-=head1 LICENSE
-
-You may distribute this code under the same terms as Perl itself.
+Please see L<Finance::DST::FAN::Mail> for more information.
 
 =cut

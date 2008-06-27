@@ -1,3 +1,8 @@
+This is a collection of notes for future versions and HA environments
+The goal is to create a distributed environment which can pass messages
+through a distributed, persistent and fail-safe task queue. This part of
+the project is still in it's planning stages.
+
 Workflow Notes:
 
 1 - Get list of Files

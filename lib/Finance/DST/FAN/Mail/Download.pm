@@ -2,7 +2,7 @@ package Finance::DST::FAN::Mail::Download;
 
 use Moose;
 
-our $VERSION = '0.001000';
+our $VERSION = '0.002000';
 
 use URI;
 use XML::Simple;
@@ -148,6 +148,8 @@ sub delete {
     confess("${file} is not in the file list");
   }
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 
@@ -364,16 +366,8 @@ L<Finance::DST::FAN::Mail::Download::Plugin::Unzip>,
 L<Finance::DST::FAN::Mail::Download::Plugin::Rename>
 L<Finance::DST::FAN::Mail::Download::Plugin::Split>
 
-=head1 AUTHOR
+=head1 AUTHOR & LICENSE
 
-Guillermo Roditi (groditi) <groditi@cpan.org>
-
-=head1 BUGS, FEATURE REQUESTS AND CONTRIBUTIONS
-
-Google Code Project Page - L<http://code.google.com/p/finance-dst-fan-mail/>
-
-=head1 LICENSE
-
-You may distribute this code under the same terms as Perl itself.
+Please see L<Finance::DST::FAN::Mail> for more information.
 
 =cut

@@ -171,18 +171,8 @@ name of the apropriate parser class. (FPR, SF, AMP, APR, DA, DFA, NAA, NFA)
 Attempt to open the file, extract the header record and return the results of
 C<file_info_from_header>.
 
-=head1 AUTHOR
+=head1 AUTHOR & LICENSE
 
-Guillermo Roditi (groditi) <groditi@cpan.org>
-
-Your name could be here (please contribute!)
-
-=head1 BUGS, FEATURE REQUESTS AND CONTRIBUTIONS
-
-Google Code Project Page - L<http://code.google.com/p/finance-dst-fan-mail/>
-
-=head1 LICENSE
-
-You may distribute this code under the same terms as Perl itself.
+Please see L<Finance::DST::FAN::Mail> for more information.
 
 =cut

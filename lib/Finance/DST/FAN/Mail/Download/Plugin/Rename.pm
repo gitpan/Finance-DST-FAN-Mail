@@ -2,7 +2,7 @@ package Finance::DST::FAN::Mail::Download::Plugin::Rename;
 
 use Moose::Role;
 
-our $VERSION = '0.001000';
+our $VERSION = '0.002000';
 
 use File::Copy;
 use Finance::DST::FAN::Mail::Utils qw/get_file_info/;
@@ -96,16 +96,8 @@ L<Finance::DST::FAN::Mail::Download>,
 L<Finance::DST::FAN::Mail::Download::Plugin::Unzip>
 L<Finance::DST::FAN::Mail::Download::Plugin::Split>
 
-=head1 AUTHOR
+=head1 AUTHOR & LICENSE
 
-Guillermo Roditi (groditi) <groditi@cpan.org>
-
-=head1 BUGS, FEATURE REQUESTS AND CONTRIBUTIONS
-
-Google Code Project Page - L<http://code.google.com/p/finance-dst-fan-mail/>
-
-=head1 LICENSE
-
-You may distribute this code under the same terms as Perl itself.
+Please see L<Finance::DST::FAN::Mail> for more information.
 
 =cut
