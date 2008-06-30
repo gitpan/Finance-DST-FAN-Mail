@@ -1,6 +1,6 @@
 package Finance::DST::FAN::Mail::File::Activity;
 
-our $VERSION = '0.003000';
+our $VERSION = '0.004000';
 
 use Moose;
 use Finance::DST::FAN::Mail::Utils qw/trim parse_date/;
@@ -12,6 +12,7 @@ override is_delta => sub { 1 };
 
 our $plh1 = qr/^PLH001(.{8})(.{8})(.{7})(.{20})(..)(.{12})(.{12})(.{12})(.{31})(.)(.{30})(.)(..)/;
 our $plh2 = qr/^PLH002(.)(.)(.{15})(.{15})(.{15})(.{15})(.{15})(.{15})(.)/;
+
 our $act1 = qr/^(?:NAA|AMP|NFA)001(.{7})(.{9})(.{9})(.{7})(.{20})(?:[F ])(.{8})(.{8})(.)(.{10})(.)(.{3})(.{3})(.{9})(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.{3})(.{9})(..)(.{9})(.{9})(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)/;
 our $act2 = qr/^(?:NAA|AMP|NFA)002(.)(.)(.)(.)(.{35})(.{35})(.{35})(.{35})(.{8})(.)(.)/;
 our $act3 = qr/^(?:NAA|AMP|NFA)003(.{35})(.{35})(.{35})(.{9})(.{30})/;
@@ -63,6 +64,8 @@ after _process_header => sub {
     $self->primary_beneficiary(trim $9);
     $self->multiple_primary_beneficiary_i($10 eq 'M' ? 1 : 0);
     $self->policy_status($11);
+    defined(my $line = $self->next_line) or
+      $self->error("File ended prematurely on PLH001");
     if ($line =~ /$plh2/ ){
       $self->billing_type($1);
       $self->billing_freqency($2);
@@ -71,10 +74,10 @@ after _process_header => sub {
       $self->gl_single_premium($5 / 100);
       $self->target_premium($6 / 100);
       $self->no_lapse_guarantee_premium($7 / 100);
-      $self->seven_pay_premiu( $8 / 100);
+      $self->seven_pay_premium( $8 / 100);
       $self->mec_i( $9 eq 'Y' ? 1 : 0);
     } else {
-      $self->error("Expected PPH002 record but got '${line}'");
+      $self->error("Expected PLH002 record but got '${line}'");
     }
   } else {
     $self->error("Expected PPH001 record but got '${line}'");

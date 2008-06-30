@@ -1,3 +1,9 @@
+0.004000 - June 30 2008
+  - VUL fixes for Activity
+  - MF fix for DA
+  - be more lax about trailing whitepace
+  - Couple of other bugfixes. Still failing on test data, but it looks like test data is wrong
+  - use croak instead of confess
 0.003000 - June 27 2008
   - use Sub::Exporter for utils
   - add %type_code_to_name and %type_name_to_code to Utils

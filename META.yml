@@ -27,7 +27,7 @@ requires:
   MooseX::Object::Pluggable: 0.0006
   MooseX::Types::Path::Class: 0.04
   Path::Class: 0
-  Sub::Export: 0
+  Sub::Exporter: 0
   URI: 0
   XML::Simple: 0
-version: 0.003000
+version: 0.004000

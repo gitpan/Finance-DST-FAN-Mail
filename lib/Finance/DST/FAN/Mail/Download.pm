@@ -2,9 +2,10 @@ package Finance::DST::FAN::Mail::Download;
 
 use Moose;
 
-our $VERSION = '0.003000';
+our $VERSION = '0.004000';
 
 use URI;
+use Carp ();
 use XML::Simple;
 use Path::Class;
 use MIME::Base64 qw/encode_base64/;
@@ -118,7 +119,7 @@ sub download {
 
     my $filepath = $self->download_dir->file($file);
     if (-e $filepath){
-      confess("${filepath} already exists. Will not be overwritten.");
+      Carp::croak("${filepath} already exists. Will not be overwritten.");
     }
 
     $self->_authed_request($uri, ':content_file' => "$filepath");
@@ -126,7 +127,7 @@ sub download {
 
     return $filepath;
   } else {
-    confess("${file} is not in the file list");
+    Carp::croak("${file} is not in the file list");
   }
 }
 
@@ -141,11 +142,11 @@ sub delete {
 
     $self->clear_file_list;
     if( grep {$file eq $_} $self->file_list ){
-      confess("Deletion of file '${file}' appears to have failed");
+      Carp::croak("Deletion of file '${file}' appears to have failed");
     }
     return $file;
   } else {
-    confess("${file} is not in the file list");
+    Carp::croak("${file} is not in the file list");
   }
 }
 

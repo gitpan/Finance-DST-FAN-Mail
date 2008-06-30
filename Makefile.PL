@@ -24,7 +24,7 @@ requires 'MooseX::Types::Path::Class' => '0.04';
 requires 'IO::Uncompress::Unzip';
 requires 'File::Copy';
 requires 'Class::MOP';
-requires 'Sub::Export';
+requires 'Sub::Exporter';
 
 WriteAll;
 

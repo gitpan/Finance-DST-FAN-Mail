@@ -5,7 +5,7 @@ use warnings;
 use IO::File;
 use Class::MOP;
 use DateTime;
-use Carp qw/confess/;
+use Carp ();
 
 use Sub::Exporter -setup =>
   { exports => [ qw(
@@ -18,7 +18,7 @@ use Sub::Exporter -setup =>
                ],
   };
 
-our $VERSION = '0.003000';
+our $VERSION = '0.004000';
 
 our %type_code_to_name =
   (
@@ -42,7 +42,7 @@ sub parse_date($;$) {
     my $year = substr($date,0,4);
     my $month = substr($date,4,2);
     my $day = substr($date,6,2);
-    confess if (@_ && !defined($_[0]));
+    Carp::croak if (@_ && !defined($_[0]));
     if (@_ && ($_[0] =~ /\d{6}/ ) ) {
       my $hour = substr($_[0],0,2);
       my $min = substr($_[0],2,2);
@@ -83,7 +83,7 @@ sub file_info_from_header{
   } elsif ($type eq 'NONFINANCIALACT') {
     $type = 'NFA';
   } else {
-    confess "File type '${type}' not supported.",
+    Carp::croak "File type '${type}' not supported.",
   }
 
   my $file_date = parse_date(substr($line,29,8));
@@ -113,11 +113,11 @@ sub file_info_from_header{
 sub get_file_info {
   my $file = shift;
   if(my $io = IO::File->new("<${file}")){
-    defined(my $line = $io->getline) or confess("File '${file}' is empty.");
+    defined(my $line = $io->getline) or Carp::croak("File '${file}' is empty.");
     undef $io;
     return file_info_from_header($line);
   } else {
-    confess("Failed to open '${file}'");
+    Carp::croak("Failed to open '${file}'");
   }
 }
 

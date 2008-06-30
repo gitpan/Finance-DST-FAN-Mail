@@ -1,5 +1,6 @@
 package Finance::DST::FAN::Mail::File;
 
+use Carp ();
 use Moose;
 use IO::File;
 use DateTime;
@@ -7,10 +8,7 @@ use MooseX::Types::Path::Class qw/File/;
 
 use Finance::DST::FAN::Mail::Utils qw/trim parse_date/;
 
-sub is_refresh{  confess "empty prototype" }
-sub is_delta{ confess "empty prototype" }
-
-our $VERSION = '0.003000';
+our $VERSION = '0.004000';
 
 our $rhr = qr/^RHR001(.{15})(\d{8})(\d{8})([\d\s]{8})(.{8})(\d{3})(\d{7}).(.{3})(..).(.)(.)/;
 our $rtr = qr/^RTR001(.{15})(.{9})/;
@@ -20,7 +18,7 @@ has record_callback => (is => 'ro', isa => 'CodeRef', predicate => 'has_record_c
 
 has records       => (is => 'ro', isa => 'ArrayRef', lazy_build => 1);
 has _file_handle  => (is => 'ro', isa => 'IO::File', lazy_build => 1);
-has _current_record_number => 
+has _current_record_number =>
   (
    is => 'rw',
    isa => 'Int',
@@ -40,6 +38,12 @@ has product_type     => (is => 'rw', isa => 'Str');
 has vul_type         => (is => 'rw', isa => 'Str');
 has record_count     => (is => 'rw', isa => 'Int');
 
+# this is future work
+#has strictness => (is => 'rw', isa => 'Int', default => sub {3} );
+
+sub is_refresh{  confess "empty prototype" }
+sub is_delta{ confess "empty prototype" }
+
 sub error {
   my ($self, $message) = @_;
   my @segments = ($message);
@@ -53,12 +57,12 @@ sub error {
       }
     }
   }
-  confess(join("; ", @segments));
+  Carp::croak(join("; ", @segments));
 }
 
-#So, Originally I planned on throwing exceptions when files came without 
+#So, Originally I planned on throwing exceptions when files came without
 #trailing whitespace, but the test files sometimes lack trailing whitespace
-#so I am tagging it back in. AFAIK all DST FANMail files are 160 bytes in 
+#so I am tagging it back in. AFAIK all DST FANMail files are 160 bytes in
 # length. If they actually mean characters then we might have some breakage
 # if we ever encounter characters that are more than one byte since length()
 # returns the length in bytes, not characters. cross your fingers suckaaaasss
@@ -67,7 +71,10 @@ sub next_line {
   my $self = shift;
   if( defined(my $line = $self->_file_handle->getline) ){
     $self->_current_record_number( $self->_current_record_number + 1 );
-    ($line) = ($line =~ /^(.*?)\r?\n?$/);
+    #can't use chomp because we don't know if we are getting \r or \r\n and
+    # we can't localize $/ to a file handle. bullshit.
+    $line =~ s/(?:\r?\n)$//;
+    #this should go away when reading the file in strict mode >= 4
     $line = join("", $line, (" " x (160 - length($line))));
     return $line;
   }
@@ -78,14 +85,14 @@ sub next_line {
 sub _build__file_handle {
   my $self = shift;
   my $file = $self->filename;
-  confess("file $file is not readable by effective uid/gid")
-    unless -r $file;
+  Carp::croak("file $file is not readable by effective uid/gid")
+      unless -r $file;
 
   if( my $io =  IO::File->new("<${file}") ){
-    $self->_current_record_number( 0 );
+    $self->_current_record_number( 0 ); #uhm... $. ?
     return $io;
   } else {
-    confess("Failed to open $file");
+    Carp::croak("Failed to open $file");
   }
 }
 
@@ -161,12 +168,13 @@ sub _process_footer {
   if( $line =~ /$rtr/){
     my $target = $2;
     $self->record_count($target);
-    if(defined($line = $self->next_line)){
-      $self->error("File has data '${line}' after footer")
-    }
     my $record_count = $self->_current_record_number;
-    $self->error("Record count mismatch expected $target but got $record_count")
+    $self->error("Record count mismatch expected ${target} but got ${record_count}")
       unless $target == $record_count;
+    while(defined($line = $self->next_line)){
+      $self->error("File has data '${line}' after footer")
+        if trim($line) ne ''; #ignore empty lines at the end of the file
+    }
     $self->_clear_file_handle; #close the filehandle
     return 1;
   }

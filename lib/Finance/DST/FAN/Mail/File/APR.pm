@@ -1,6 +1,6 @@
 package Finance::DST::FAN::Mail::File::APR;
 
-our $VERSION = '0.003000';
+our $VERSION = '0.004000';
 
 use Moose;
 use Finance::DST::FAN::Mail::Utils qw/trim parse_date/;
@@ -20,7 +20,7 @@ has loan_value       => (is => 'rw', isa => 'Num');
 has collateral_value => (is => 'rw', isa => 'Num');
 has premium_paid     => (is => 'rw', isa => 'Num');
 
-our $pph  = qr/^PPH001(\d{7})(.{20})(.{15})(.{15})(.{15})(.{15})(.{15})(.{15}).{37}/;
+our $pph  = qr/^PPH001(.{7})(.{20})(.{15})(.{15})(.{15})(.{15})(.{15})(.{15}).{37}/;
 our $apr1 = qr/^APR001(.{7})(.{9})(.{9})(.{7})(.{20})(?:[F ])(.{15})(.{15})(.{15})(.{9})(.{15})(.{4})(.{4})(.{7})(.{7}).{10}/;
 
 our $apr2 = qr/^APR002(.{15})(.{15})(.{15})(.{10})(.{9})(.{30})(.{9})(.{3})(.)(.{9})(.{9})(.)(.)(.)(.)(.{9})(.{15})./;
