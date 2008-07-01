@@ -1,6 +1,6 @@
 package Finance::DST::FAN::Mail::File::APR;
 
-our $VERSION = '0.004000';
+our $VERSION = '0.005000';
 
 use Moose;
 use Finance::DST::FAN::Mail::Utils qw/trim parse_date/;

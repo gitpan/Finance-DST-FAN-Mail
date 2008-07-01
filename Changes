@@ -1,3 +1,13 @@
+0.004100 - July 01 2008
+  - more keys for get_info_from_header
+  - basic tests for Utils. little by little ...
+  - Updated Utils to have the new:
+    - %type_code_to_name
+    - %class_code_to_name
+    - %class_code_to_description
+    - %type_name_to_class
+    - %mgmt_sys_codes
+    - &file_info_from_remote_filename
 0.004000 - June 30 2008
   - VUL fixes for Activity
   - MF fix for DA

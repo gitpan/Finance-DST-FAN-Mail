@@ -2,7 +2,7 @@ package Finance::DST::FAN::Mail::Download::Plugin::Unzip;
 
 use Moose::Role;
 
-our $VERSION = '0.004000';
+our $VERSION = '0.005000';
 
 use IO::Uncompress::Unzip qw(unzip $UnzipError) ;
 

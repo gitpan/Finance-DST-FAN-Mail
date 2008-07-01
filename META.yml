@@ -30,4 +30,4 @@ requires:
   Sub::Exporter: 0
   URI: 0
   XML::Simple: 0
-version: 0.004000
+version: 0.005000

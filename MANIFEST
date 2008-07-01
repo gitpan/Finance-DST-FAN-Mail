@@ -29,6 +29,7 @@ META.yml
 NOTES
 README
 t/00-load.t
+t/02-utils.t
 t/pod-coverage.t
 t/pod.t
 

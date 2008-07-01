@@ -2,7 +2,7 @@ package Finance::DST::FAN::Mail::Download::Plugin::Split;
 
 use Moose::Role;
 
-our $VERSION = '0.004000';
+our $VERSION = '0.005000';
 
 use Finance::DST::FAN::Mail::Utils qw/trim file_info_from_header/;
 

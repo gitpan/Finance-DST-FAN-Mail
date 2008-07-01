@@ -8,7 +8,7 @@ use MooseX::Types::Path::Class qw/File/;
 
 use Finance::DST::FAN::Mail::Utils qw/trim parse_date/;
 
-our $VERSION = '0.004000';
+our $VERSION = '0.005000';
 
 our $rhr = qr/^RHR001(.{15})(\d{8})(\d{8})([\d\s]{8})(.{8})(\d{3})(\d{7}).(.{3})(..).(.)(.)/;
 our $rtr = qr/^RTR001(.{15})(.{9})/;
